@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import WelcomePage from './WelcomePage';
 import LanguageSwitcher from './LanguageSwitcher'; // Import the new component
 import './i18n'; 
+import FingerprintScanner from './FingerprintScanner';
 
 function App() {
   return (
@@ -15,6 +16,8 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<WelcomePage />} />
+          <Route path="/finger" element={<FingerprintScanner />} />
+
         </Routes>
       </Router>
     </div>
