@@ -1,5 +1,4 @@
 {
-    "welcome": "Welcome to the Airport Check-In System",
-    "checkIn": "Check-in faster and easier with our system."
-  }
-  
+  "welcome": "Welcome to the Airport Check-In System",
+  "checkIn": "Please insert your passport into the scanner to start."
+}
