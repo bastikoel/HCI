@@ -1,4 +1,9 @@
 {
   "welcome": "Welcome to the Airport Check-In System",
-  "checkIn": "Please insert your passport into the scanner to start."
+  "checkIn": "Please insert your passport into the scanner to start.",
+  "fingerprintScanner": "Fingerprint Scanner",
+  "readyToScan": "Ready to scan",
+  "scanning": "Scanning...",
+  "scanSuccessful": "Scan successful!",
+  "scanFailed": "Scan failed. Please try again."
 }

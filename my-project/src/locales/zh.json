@@ -1,4 +1,9 @@
 {
-  "welcome": "欢迎来到机场办理登机手续系统",
-  "checkIn": "请将您的护照插入扫描仪以开始。"
+  "welcome": "欢迎来到机场值机系统",
+  "checkIn": "请将护照插入扫描仪以开始。",
+  "fingerprintScanner": "指纹扫描仪",
+  "readyToScan": "准备扫描",
+  "scanning": "正在扫描...",
+  "scanSuccessful": "扫描成功！",
+  "scanFailed": "扫描失败。请重试。"
 }

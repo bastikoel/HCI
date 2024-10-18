@@ -1,4 +1,9 @@
 {
   "welcome": "Selamat datang ke Sistem Daftar Masuk Lapangan Terbang",
-  "checkIn": "Sila masukkan pasport anda ke dalam pengimbas untuk memulakan."
+  "checkIn": "Sila masukkan pasport anda ke dalam pengimbas untuk memulakan.",
+  "fingerprintScanner": "Pengimbas Cap Jari",
+  "readyToScan": "Sedia untuk mengimbas",
+  "scanning": "Mengimbas...",
+  "scanSuccessful": "Imbasan berjaya!",
+  "scanFailed": "Imbasan gagal. Sila cuba lagi."
 }

@@ -1,15 +1,37 @@
-import React, { useState } from 'react';
-
-// Import a fingerprint image and a loading spinner image
+import React, { useState, useEffect } from 'react';
 import fingerprintImage from './assets/fingerprint.png'; // Replace with your fingerprint image path
 import loadingSpinner from './assets/loading-spinner.gif'; // Replace with your loading spinner path
+import { useTranslation } from 'react-i18next';
 
 const FingerprintScanner = () => {
-    const [status, setStatus] = useState('Ready to scan');
+    const { t, i18n } = useTranslation(); // Get translation and current language
+    const [status, setStatus] = useState(t('readyToScan')); // Initial status message
     const [loading, setLoading] = useState(false);
 
+    // Function to speak the status message
+    const speak = (text) => {
+        if ('speechSynthesis' in window) {
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = i18n.language; // Set to current language
+            utterance.pitch = 1;
+            utterance.rate = 1;
+            window.speechSynthesis.speak(utterance);
+        }
+    };
+
+    // Update status when language changes
+    useEffect(() => {
+        setStatus(t('readyToScan')); // Reset status to the initial message in the new language
+        speak(status); // Speak the updated status message
+    }, [i18n.language]); // Run this effect whenever the language changes
+
+    // Speak the current status when it changes
+    useEffect(() => {
+        speak(status); // Speak the updated status when it changes
+    }, [status]); // Run this effect whenever the status changes
+
     const handleScan = async () => {
-        setStatus('Scanning...');
+        setStatus(t('scanning')); // Update status for scanning
         setLoading(true);
         try {
             // Simulate a delay to mimic the scanning process
@@ -18,23 +40,15 @@ const FingerprintScanner = () => {
             // Randomly determine success or failure (50/50 chance)
             const isSuccess = Math.random() > 0.5;
             if (isSuccess) {
-                const fakeCredential = {
-                    id: "fake-credential-id", // Fake credential ID
-                    type: "public-key", // Type of credential
-                    rawId: new Uint8Array(16), // Fake raw ID data
-                    response: {
-                        clientDataJSON: new Uint8Array([1, 2, 3]), // Fake client data
-                        attestationObject: new Uint8Array([4, 5, 6]), // Fake attestation object
-                    },
-                };
-                console.log('Fingerprint scanned successfully:', fakeCredential);
-                setStatus('Scan successful!');
+                setStatus(t('scanSuccessful')); // Update status for success
+                speak(t('scanSuccessful')); // Voice feedback for success
             } else {
                 throw new Error('Fingerprint scan failed.'); // Simulate a scan failure
             }
         } catch (error) {
             console.error('Fingerprint scan failed:', error);
-            setStatus('Scan failed. Please try again.');
+            setStatus(t('scanFailed')); // Update status for failure
+            speak(t('scanFailed')); // Voice feedback for failure
         } finally {
             setLoading(false);
         }
@@ -42,7 +56,7 @@ const FingerprintScanner = () => {
 
     return (
         <div style={{ padding: '20px', textAlign: 'center' }}>
-            <h2>Fingerprint Scanner</h2>
+            <h2>{t('fingerprintScanner')}</h2>
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '20px' }}>
                 <img
                     src={loading ? loadingSpinner : fingerprintImage}
