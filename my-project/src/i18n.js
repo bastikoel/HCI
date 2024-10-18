@@ -6,7 +6,7 @@ import { initReactI18next } from 'react-i18next';
 import en from './locales/en.json';
 import zh from './locales/zh.json';
 import ms from './locales/ms.json';
-import ta from './locales/ta.json';
+import hi from './locales/hi.json';
 
 // Configure i18next
 i18n
@@ -16,9 +16,9 @@ i18n
       en: { translation: en },
       zh: { translation: zh },
       ms: { translation: ms },
-      ta: { translation: ta },
+      hi: { translation: hi },
     },
-    lng: 'en', // default language
+    lng: 'en', // Change default language to Hindi
     fallbackLng: 'en', // if translation is missing in selected language, fallback to English
     interpolation: {
       escapeValue: false, // React already escapes values

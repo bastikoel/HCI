@@ -31,10 +31,10 @@ function LanguageSwitcher() {
         Malay
       </button>
       <button
-        onClick={() => changeLanguage('ta')}
+        onClick={() => changeLanguage('hi')}
         className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700"
       >
-        Tamil
+        Hindi
       </button>
     </div>
   );

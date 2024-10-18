@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-// Import your GIF file
 import passportGif from './assets/passport-insert.gif'; 
 
 function WelcomePage() {
@@ -15,7 +14,6 @@ function WelcomePage() {
       utterance.lang = i18n.language; // Set the language dynamically
       utterance.pitch = 1;
       utterance.rate = 1;
-
       synth.speak(utterance);
     }
   }, [t, i18n.language]); // Re-run effect if the language changes
