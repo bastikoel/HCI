@@ -6,20 +6,23 @@ import LanguageSwitcher from './LanguageSwitcher';
 import './i18n'; 
 import FingerprintScanner from './FingerprintScanner';
 import FaceScanner from './FaceScanner'; // Ensure this is the only import
+import Layout from './Layout';
 
 function App() {
   return (
     <div>
       {/* Language switcher */}
-      <LanguageSwitcher />
+      {/* <LanguageSwitcher /> */}
 
       {/* Routes */}
       <Router>
+        <Layout>
         <Routes>
           <Route path="/" element={<WelcomePage />} />
           <Route path="/finger" element={<FingerprintScanner />} />
           <Route path="/face" element={<FaceScanner />} /> {/* Corrected here */}
         </Routes>
+        </Layout>
       </Router>
     </div>
   );

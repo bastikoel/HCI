@@ -19,12 +19,19 @@ function WelcomePage() {
   }, [t, i18n.language]); // Re-run effect if the language changes
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-blue-100">
-      <h1 className="text-4xl font-bold text-blue-900">{t('welcome')}</h1>
-      <p className="text-lg text-blue-700 mt-4">{t('checkIn')}</p>
+    <div className="text-center">
+      <h1 className="text-4xl font-bold text-blue-900 mt-4">{t('welcome')}</h1>
+      <p className="text-lg text-blue-700 mt-2">{t('checkIn')}</p>
       
-      {/* Add the GIF animation below the text */}
-      <img src={passportGif} alt="Insert Passport" className="mt-8 w-64 h-auto" />
+      {/* Wrap the image in a flex container to center it */}
+      <div className="flex justify-center mt-8">
+        <img 
+          src={passportGif} 
+          alt="Insert Passport" 
+          className="w-3/4 h-auto" 
+        />
+      </div>
+
     </div>
   );
 }
