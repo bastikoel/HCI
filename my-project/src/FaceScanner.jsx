@@ -70,6 +70,9 @@ const FaceScanner = () => {
               const faceFitsFrame = isFaceInFrame(faceBox, displaySize);
               setFaceInFrame(faceFitsFrame);
 
+              // Dynamically position canvas based on face detection
+              adjustCanvasPosition(faceBox);
+
               // Check for accessories (glasses/cap)
               checkForAccessories(resizedDetections[0]);
             } else {
@@ -120,6 +123,16 @@ const FaceScanner = () => {
     }
   };
 
+  // Function to adjust canvas position based on face box
+  const adjustCanvasPosition = (faceBox) => {
+    const videoBounds = videoRef.current.getBoundingClientRect();
+
+    const canvasElement = canvasRef.current.firstChild;
+    canvasElement.style.position = 'absolute';
+    canvasElement.style.left = `${videoBounds.left + faceBox.x}px`;
+    canvasElement.style.top = `${videoBounds.top + faceBox.y}px`;
+  };
+
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
       <h1 className="text-3xl font-bold">Face Scanning Page</h1>
@@ -136,7 +149,7 @@ const FaceScanner = () => {
       />
 
       {/* Canvas for drawing face landmarks */}
-      <div ref={canvasRef} style={{ position: 'absolute', top: 0, left: 0 }} />
+      <div ref={canvasRef} style={{ position: 'relative', zIndex: 2 }} />
 
       {/* Feedback message for user */}
       <div className="mt-4">
