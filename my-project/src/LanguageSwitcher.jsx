@@ -1,41 +1,27 @@
-// src/LanguageSwitcher.jsx
 import React from 'react';
-import { useTranslation } from 'react-i18next'; // Import useTranslation hook
+import { useTranslation } from 'react-i18next';
 
 function LanguageSwitcher() {
   const { i18n } = useTranslation(); // Destructure the i18n object to manage language changes
 
   // Function to change language
-  const changeLanguage = (lng) => {
-    i18n.changeLanguage(lng); // This will change the language dynamically
+  const changeLanguage = (event) => {
+    const selectedLanguage = event.target.value;
+    i18n.changeLanguage(selectedLanguage); // This will change the language dynamically
   };
 
   return (
-    <div className="flex justify-center mt-4 space-x-2">
-      <button
-        onClick={() => changeLanguage('en')}
+    <div className="flex justify-center mt-4">
+      <select
+        onChange={changeLanguage}
         className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700"
+        style={{ position: 'relative', zIndex: 10 }} // Ensures dropdown appears correctly
       >
-        English
-      </button>
-      <button
-        onClick={() => changeLanguage('zh')}
-        className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700"
-      >
-        中文
-      </button>
-      <button
-        onClick={() => changeLanguage('ms')}
-        className="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-700"
-      >
-        Malay
-      </button>
-      <button
-        onClick={() => changeLanguage('hi')}
-        className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700"
-      >
-        Hindi
-      </button>
+        <option value="en">English</option>
+        <option value="zh">中文</option>
+        <option value="ms">Malay</option>
+        <option value="hi">Hindi</option>
+      </select>
     </div>
   );
 }
