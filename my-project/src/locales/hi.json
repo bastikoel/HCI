@@ -12,5 +12,10 @@
   "proceedToNextStation": "कृपया अगले स्टेशन पर जाएं।",
   "redirectingInSeconds": "{{countdown}} सेकंड में पुनः निर्देशित किया जा रहा है...",
    "wrongPageInserted": "गलत पृष्ठ डाला गया",
-  "flipToCorrectPage": "कृपया अपना विशेष पृष्ठ डालने के लिए पलटें।"
+  "flipToCorrectPage": "कृपया अपना विशेष पृष्ठ डालने के लिए पलटें।",
+  "centerYourFace": "अपना चेहरा केंद्रित करें",
+  "removeYourGlasses": "अपना चश्मा हटा दें",
+  "removeYourCap": "अपनी टोपी हटा दें",
+  "success": "सफलता",
+  "failed": "असफल"
 }

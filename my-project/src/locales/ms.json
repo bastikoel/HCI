@@ -12,5 +12,10 @@
   "proceedToNextStation": "Sila teruskan ke stesen seterusnya.",
   "redirectingInSeconds": "Mengalih hala dalam {{countdown}} saat...",
   "wrongPageInserted": "Halaman yang salah dimasukkan",
-  "flipToCorrectPage": "Sila terbalikkan ke halaman tertentu anda untuk dimasukkan."
+  "flipToCorrectPage": "Sila terbalikkan ke halaman tertentu anda untuk dimasukkan.",
+  "centerYourFace": "Pusatkan wajah anda",
+  "removeYourGlasses": "Tanggalkan cermin mata anda",
+  "removeYourCap": "Tanggalkan topi anda",
+  "success": "Berjaya",
+  "failed": "Gagal"
 }

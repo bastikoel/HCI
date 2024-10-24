@@ -12,5 +12,10 @@
   "proceedToNextStation": "请前往下一个站点。",
   "redirectingInSeconds": "{{countdown}} 秒后重定向...",
    "wrongPageInserted": "插入了错误的页面",
-  "flipToCorrectPage": "请翻到您的特定页面以插入。"
+  "flipToCorrectPage": "请翻到您的特定页面以插入。",
+  "centerYourFace": "将你的脸居中",
+  "removeYourGlasses": "摘下眼镜",
+  "removeYourCap": "摘下帽子",
+  "success": "成功",
+  "failed": "失败"
 }

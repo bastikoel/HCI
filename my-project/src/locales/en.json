@@ -12,5 +12,11 @@
   "proceedToNextStation": "Please proceed to the next station.",
   "redirectingInSeconds": "Redirecting in {{countdown}} seconds...",
    "wrongPageInserted": "Wrong page inserted",
-  "flipToCorrectPage": "Please flip to your particular page to be inserted."
+  "flipToCorrectPage": "Please flip to your particular page to be inserted.",
+  "centerYourFace": "Center your face",
+  "removeYourGlasses": "Remove your glasses",
+  "removeYourCap": "Remove your cap",
+  "success": "Success",
+  "failed": "Failed"
+  
 }
