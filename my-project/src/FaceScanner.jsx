@@ -1,169 +1,91 @@
 import React, { useRef, useEffect, useState } from 'react';
-import * as faceapi from 'face-api.js';
+import { useNavigate } from 'react-router-dom'; // For redirection
 
 const FaceScanner = () => {
   const videoRef = useRef(null);
-  const canvasRef = useRef(null);
-  const [initialized, setInitialized] = useState(false);
-  const [faceInFrame, setFaceInFrame] = useState(false);
-  const [accessoriesMessage, setAccessoriesMessage] = useState('');
-
-  // Load face-api.js models
-  useEffect(() => {
-    const loadModels = async () => {
-      try {
-        // Load Tiny Face Detector and Landmark detection models
-        await faceapi.nets.tinyFaceDetector.loadFromUri('/models');
-        await faceapi.nets.faceLandmark68Net.loadFromUri('/models');
-        setInitialized(true);
-      } catch (error) {
-        console.error('Error loading face-api.js models:', error);
-      }
-    };
-
-    loadModels();
-  }, []);
+  const [glowColor, setGlowColor] = useState('0px 0px 20px 10px rgba(0, 255, 0, 0.6)'); // Default to green glow
+  const [errorText, setErrorText] = useState('This is error text');
+  const navigate = useNavigate(); // Initialize useNavigate for redirection
 
   // Start video stream with error handling
   useEffect(() => {
-    if (initialized) {
-      navigator.mediaDevices
-        .getUserMedia({ video: { facingMode: 'user' } })
-        .then((stream) => {
-          videoRef.current.srcObject = stream;
-        })
-        .catch((error) => {
-          console.error('Error accessing camera:', error);
+    const startCamera = async () => {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: { facingMode: 'user' }, // Front-facing camera
         });
+        if (videoRef.current) {
+          videoRef.current.srcObject = stream;
+        }
+      } catch (error) {
+        console.error('Error accessing camera:', error);
+      }
+    };
 
-      videoRef.current.addEventListener('play', () => {
-        const canvas = faceapi.createCanvasFromMedia(videoRef.current);
-        canvasRef.current.innerHTML = ''; // Clear any previous canvas
-        canvasRef.current.append(canvas);
+    startCamera();
+  }, []);
 
-        const displaySize = {
-          width: videoRef.current.width,
-          height: videoRef.current.height,
-        };
-        faceapi.matchDimensions(canvas, displaySize);
+  // Handle key presses for different actions
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      switch (event.key) {
+        case '1':
+          setGlowColor('0px 0px 20px 10px rgba(0, 255, 0, 0.6)'); // Green glow
+          break;
+        case '2':
+          setGlowColor('0px 0px 20px 10px rgba(255, 0, 0, 0.6)'); // Red glow
+          break;
+        case '3':
+          setErrorText('Center your face');
+          break;
+        case '4':
+          setErrorText('Remove your glasses');
+          break;
+        case '5':
+          setErrorText('Remove your cap');
+          break;
+        case '6':
+          setErrorText('Success');
+          setTimeout(() => {
+            navigate('/done'); // Redirect to success page after 1 second
+          }, 1000);
+          break;
+        case '7':
+          setErrorText('Failed');
+          setTimeout(() => {
+            navigate('/fingerScanner'); // Redirect to failed page after 1 second
+          }, 1000);
+          break;
+        default:
+          break;
+      }
+    };
 
-        const detectFace = () => {
-          setInterval(async () => {
-            const detections = await faceapi.detectAllFaces(
-              videoRef.current,
-              new faceapi.TinyFaceDetectorOptions()
-            ).withFaceLandmarks();
+    window.addEventListener('keydown', handleKeyDown);
 
-            const resizedDetections = faceapi.resizeResults(detections, displaySize);
-
-            // Clear the canvas before drawing new detections
-            const ctx = canvas.getContext('2d');
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            // Draw face detection boxes and landmarks
-            faceapi.draw.drawDetections(canvas, resizedDetections);
-            faceapi.draw.drawFaceLandmarks(canvas, resizedDetections);
-
-            // Check if the face is in the center of the frame
-            if (detections.length > 0) {
-              const faceBox = detections[0].detection.box;
-              const faceFitsFrame = isFaceInFrame(faceBox, displaySize);
-              setFaceInFrame(faceFitsFrame);
-
-              // Dynamically position canvas based on face detection
-              adjustCanvasPosition(faceBox);
-
-              // Check for accessories (glasses/cap)
-              checkForAccessories(resizedDetections[0]);
-            } else {
-              setFaceInFrame(false); // No face detected
-              setAccessoriesMessage('');
-            }
-          }, 100);
-        };
-
-        detectFace();
-      });
-    }
-  }, [initialized]);
-
-  // Function to check if the face fits within the defined frame
-  const isFaceInFrame = (faceBox, displaySize) => {
-    const centerX = displaySize.width / 2;
-    const centerY = displaySize.height / 2;
-    const tolerance = 100; // Tolerance in pixels for how much the face can deviate from the center
-
-    const faceCenterX = faceBox.x + faceBox.width / 2;
-    const faceCenterY = faceBox.y + faceBox.height / 2;
-
-    const withinXBounds = Math.abs(faceCenterX - centerX) < tolerance;
-    const withinYBounds = Math.abs(faceCenterY - centerY) < tolerance;
-
-    return withinXBounds && withinYBounds;
-  };
-
-  // Function to check for accessories like glasses or caps
-  const checkForAccessories = (detection) => {
-    const landmarks = detection.landmarks;
-
-    // Example checks (these can be adjusted based on landmark indices)
-    const eyeLeft = landmarks.getLeftEye();
-    const eyeRight = landmarks.getRightEye();
-    const eyebrowLeft = landmarks.getLeftEyebrow();
-    const eyebrowRight = landmarks.getRightEyebrow();
-    const nose = landmarks.getNose();
-
-    // Simple heuristic checks (you may want to refine these)
-    if (eyeLeft[1] < eyebrowLeft[1] && eyeRight[1] < eyebrowRight[1]) {
-      setAccessoriesMessage('Please remove your glasses for better detection.');
-    } else if (nose[1] < eyebrowLeft[1] && nose[1] < eyebrowRight[1]) {
-      setAccessoriesMessage('Please remove your cap for better detection.');
-    } else {
-      setAccessoriesMessage('');
-    }
-  };
-
-  // Function to adjust canvas position based on face box
-  const adjustCanvasPosition = (faceBox) => {
-    const videoBounds = videoRef.current.getBoundingClientRect();
-
-    const canvasElement = canvasRef.current.firstChild;
-    canvasElement.style.position = 'absolute';
-    canvasElement.style.left = `${videoBounds.left + faceBox.x}px`;
-    canvasElement.style.top = `${videoBounds.top + faceBox.y}px`;
-  };
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown); // Cleanup on unmount
+    };
+  }, [navigate]);
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
-      <h1 className="text-3xl font-bold">Face Scanning Page</h1>
-      <p className="text-lg mt-4">Position your face in the center of the frame</p>
+    <div className="flex flex-col items-center justify-center h-screen">
 
-      {/* Video feed */}
+      {/* Video feed with dynamic glow */}
       <video
         ref={videoRef}
         autoPlay
         muted
         width="640"
         height="480"
-        className="border border-blue-500"
+        className="border border-blue-500 mt-4 shadow-lg"
+        style={{
+          boxShadow: glowColor, // Dynamic glow color based on key press
+        }}
       />
 
-      {/* Canvas for drawing face landmarks */}
-      <div ref={canvasRef} style={{ position: 'relative', zIndex: 2 }} />
-
-      {/* Feedback message for user */}
-      <div className="mt-4">
-        {faceInFrame ? (
-          <p className="text-green-500 font-bold">Face is in the frame!</p>
-        ) : (
-          <p className="text-red-500 font-bold">Please center your face in the frame.</p>
-        )}
-      </div>
-
-      {/* Accessories warning message */}
-      {accessoriesMessage && (
-        <p className="text-yellow-500 font-bold mt-2">{accessoriesMessage}</p>
-      )}
+      {/* Dynamic Error text */}
+      <p className="mt-4 text-red-500 font-bold">{errorText}</p>
     </div>
   );
 };
