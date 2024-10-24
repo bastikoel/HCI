@@ -87,6 +87,9 @@ const FaceScanner = () => {
     };
   }, [navigate, t, i18n.language]); // Added t and i18n.language to dependencies
 
+  // Check if the current message is success to apply the green color
+  const isSuccessMessage = errorText === t('success');
+
   return (
     <div className="flex flex-col items-center justify-center h-screen">
       {/* Video feed with dynamic glow */}
@@ -102,8 +105,10 @@ const FaceScanner = () => {
         }}
       />
 
-      {/* Dynamic Error text */}
-      <p className="mt-4 text-red-500 font-bold">{errorText}</p>
+      {/* Dynamic Error or Success text */}
+      <p className={`mt-4 font-bold ${isSuccessMessage ? 'text-green-500' : 'text-red-500'}`}>
+        {errorText}
+      </p>
     </div>
   );
 };
