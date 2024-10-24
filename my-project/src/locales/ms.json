@@ -17,5 +17,7 @@
   "removeYourGlasses": "Tanggalkan cermin mata anda",
   "removeYourCap": "Tanggalkan topi anda",
   "success": "Berjaya",
-  "failed": "Gagal"
+  "failed": "Gagal",
+   "lookLower": "Lihat sedikit ke bawah",
+  "lookHigher": "Lihat sedikit ke atas"
 }

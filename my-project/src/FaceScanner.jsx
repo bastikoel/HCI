@@ -6,7 +6,8 @@ const FaceScanner = () => {
   const videoRef = useRef(null);
   const { t, i18n } = useTranslation(); // Initialize translation and current language
   const [glowColor, setGlowColor] = useState('0px 0px 20px 10px rgba(0, 255, 0, 0.6)'); // Default to green glow
-  const [errorText, setErrorText] = useState(t('defaultErrorText')); // Default error text
+  const [errorText, setErrorText] = useState(''); // Default error text
+  const [instructionText, setInstructionText] = useState(t('positionYourFace')); // Default instruction text
   const navigate = useNavigate(); // Initialize useNavigate for redirection
 
   // Start video stream with error handling
@@ -54,12 +55,10 @@ const FaceScanner = () => {
           speak(t('centerYourFace'));
           break;
         case '4':
-          setErrorText(t('removeYourGlasses'));
-          speak(t('removeYourGlasses'));
+          setInstructionText(t('lookLower')); // Change instruction text
           break;
         case '5':
-          setErrorText(t('removeYourCap'));
-          speak(t('removeYourCap'));
+          setInstructionText(t('lookHigher')); // Change instruction text
           break;
         case '6':
           setErrorText(t('success'));
@@ -89,26 +88,50 @@ const FaceScanner = () => {
 
   // Check if the current message is success to apply the green color
   const isSuccessMessage = errorText === t('success');
+  const isErrorMessage = errorText !== '' && !isSuccessMessage;
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
+    <div className="relative flex flex-col items-center justify-center h-screen">
       {/* Video feed with dynamic glow */}
-      <video
-        ref={videoRef}
-        autoPlay
-        muted
-        width="640"
-        height="480"
-        className="border border-blue-500 mt-4 shadow-lg"
-        style={{
-          boxShadow: glowColor, // Dynamic glow color based on key press
-        }}
-      />
+      <div className="relative">
+        <video
+          ref={videoRef}
+          autoPlay
+          muted
+          width="640"
+          height="480"
+          className="border border-blue-500 mt-4 shadow-lg"
+          style={{
+            boxShadow: glowColor, // Dynamic glow color based on key press
+          }}
+        />
+        
+        {/* Face overlay/guide */}
+        <div className="absolute inset-0 flex justify-center items-center pointer-events-none">
+          <div className="w-64 h-80 border-4 border-blue-500 rounded-full opacity-50"></div> 
+        </div>
+      </div>
 
       {/* Dynamic Error or Success text */}
-      <p className={`mt-4 font-bold ${isSuccessMessage ? 'text-green-500' : 'text-red-500'}`}>
-        {errorText}
-      </p>
+      {isErrorMessage && (
+        <p className={`mt-4 font-bold text-red-500`}>{errorText}</p>
+      )}
+      {isSuccessMessage && (
+        <p className={`mt-4 font-bold text-green-500`}>{errorText}</p>
+      )}
+
+      {/* Instruction text (neutral color like blue) */}
+      <p className="mt-4 text-blue-500 font-bold">{instructionText}</p>
+
+      {/* Option to press buttons for more instructions */}
+      <div className="mt-4">
+        <p className="text-yellow-500">Press '4' to look a bit lower</p>
+        <p className="text-yellow-500">Press '5' to look a bit higher</p>
+        <p className="text-yellow-500">Press '1' for Success (green glow)</p>
+        <p className="text-yellow-500">Press '2' for Failure (red glow)</p>
+        <p className="text-yellow-500">Press '6' for Success and Redirect</p>
+        <p className="text-yellow-500">Press '7' for Failure and Redirect</p>
+      </div>
     </div>
   );
 };

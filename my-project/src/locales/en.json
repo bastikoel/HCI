@@ -17,6 +17,8 @@
   "removeYourGlasses": "Remove your glasses",
   "removeYourCap": "Remove your cap",
   "success": "Success",
-  "failed": "Failed"
+  "failed": "Failed",
+  "lookLower": "Look a bit lower",
+  "lookHigher": "Look a bit higher"
   
 }

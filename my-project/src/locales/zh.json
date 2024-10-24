@@ -17,5 +17,7 @@
   "removeYourGlasses": "摘下眼镜",
   "removeYourCap": "摘下帽子",
   "success": "成功",
-  "failed": "失败"
+  "failed": "失败",
+   "lookLower": "稍微向下看",
+  "lookHigher": "稍微向上看"
 }

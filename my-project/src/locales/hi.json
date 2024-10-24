@@ -17,5 +17,7 @@
   "removeYourGlasses": "अपना चश्मा हटा दें",
   "removeYourCap": "अपनी टोपी हटा दें",
   "success": "सफलता",
-  "failed": "असफल"
+  "failed": "असफल",
+   "lookLower": "थोड़ा नीचे देखें",
+  "lookHigher": "थोड़ा ऊपर देखें"
 }
