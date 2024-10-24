@@ -1,9 +1,16 @@
 {
   "welcome": "Selamat datang ke Sistem Daftar Masuk Lapangan Terbang",
   "checkIn": "Sila masukkan pasport anda ke dalam pengimbas untuk memulakan.",
-  "fingerprintScanner": "Pengimbas Cap Jari",
-  "readyToScan": "Sedia untuk mengimbas",
-  "scanning": "Mengimbas...",
-  "scanSuccessful": "Imbasan berjaya!",
-  "scanFailed": "Imbasan gagal. Sila cuba lagi."
+  "callForAssistance": "Panggil Bantuan",
+  "officerComingToHelp": "Seorang pegawai sedang datang untuk membantu anda",
+  "pressToClose": "Tekan '2' untuk menutup mesej ini.",
+  "scanningPassport": "Sedang Mengimbas Pasport",
+  "pressSuccessOrFailure": "Tekan '1' untuk berjaya atau '2' untuk gagal",
+  "scanSuccess": "Imbasan berjaya",
+  "scanFailed": "Imbasan gagal",
+  "removePassport": "Sila keluarkan pasport",
+  "proceedToNextStation": "Sila teruskan ke stesen seterusnya.",
+  "redirectingInSeconds": "Mengalih hala dalam {{countdown}} saat...",
+  "wrongPageInserted": "Halaman yang salah dimasukkan",
+  "flipToCorrectPage": "Sila terbalikkan ke halaman tertentu anda untuk dimasukkan."
 }

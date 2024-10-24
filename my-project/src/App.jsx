@@ -31,7 +31,6 @@ function App() {
           <Route path="/done" element={<Done/>} />
           <Route path="/fingerScanner" element={<FingerScanner/>} />
           <Route path="/fingerScanning" element={<FingerScanning/>} />
-
         </Routes>
         </Layout>
       </Router>

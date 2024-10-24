@@ -1,9 +1,16 @@
 {
   "welcome": "Welcome to the Airport Check-In System",
   "checkIn": "Please insert your passport into the scanner to start.",
-  "fingerprintScanner": "Fingerprint Scanner",
-  "readyToScan": "Ready to scan",
-  "scanning": "Scanning...",
-  "scanSuccessful": "Scan successful!",
-  "scanFailed": "Scan failed. Please try again."
+  "callForAssistance": "Call for Assistance",
+  "officerComingToHelp": "An officer is coming to help you",
+  "pressToClose": "Press '2' to close this message.",
+  "scanningPassport": "Scanning Passport",
+  "pressSuccessOrFailure": "Press '1' for success or '2' for failure",
+  "scanSuccess": "Scan succeeded",
+  "scanFailed": "Scan failed",
+  "removePassport": "Please remove passport",
+  "proceedToNextStation": "Please proceed to the next station.",
+  "redirectingInSeconds": "Redirecting in {{countdown}} seconds...",
+   "wrongPageInserted": "Wrong page inserted",
+  "flipToCorrectPage": "Please flip to your particular page to be inserted."
 }

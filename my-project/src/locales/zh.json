@@ -1,9 +1,16 @@
 {
-  "welcome": "欢迎来到机场值机系统",
+  "welcome": "欢迎使用机场登机系统",
   "checkIn": "请将护照插入扫描仪以开始。",
-  "fingerprintScanner": "指纹扫描仪",
-  "readyToScan": "准备扫描",
-  "scanning": "正在扫描...",
-  "scanSuccessful": "扫描成功！",
-  "scanFailed": "扫描失败。请重试。"
+  "callForAssistance": "呼叫帮助",
+  "officerComingToHelp": "一位工作人员正来帮助您",
+  "pressToClose": "按 '2' 关闭此消息。",
+  "scanningPassport": "正在扫描护照",
+  "pressSuccessOrFailure": "按 '1' 成功或按 '2' 失败",
+  "scanSuccess": "扫描成功",
+  "scanFailed": "扫描失败",
+  "removePassport": "请取走护照",
+  "proceedToNextStation": "请前往下一个站点。",
+  "redirectingInSeconds": "{{countdown}} 秒后重定向...",
+   "wrongPageInserted": "插入了错误的页面",
+  "flipToCorrectPage": "请翻到您的特定页面以插入。"
 }

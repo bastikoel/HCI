@@ -3,26 +3,45 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate for programmatic navigation
 
 const PassportScanning = () => {
-    const { t } = useTranslation(); // Get translation
+    const { t, i18n } = useTranslation(); // Get translation
     const [loading, setLoading] = useState(true); // State to track if loading is complete
     const [progress, setProgress] = useState(0); // State to track the loading bar progress
     const navigate = useNavigate(); // Initialize useNavigate for navigation
+
+    // Function to handle speech synthesis for success or failure or scanning passport
+    const speak = (message) => {
+        if ('speechSynthesis' in window) {
+            const synth = window.speechSynthesis;
+            const utterance = new SpeechSynthesisUtterance(message);
+            utterance.lang = i18n.language; // Use current language set in i18n
+            utterance.pitch = 1;
+            utterance.rate = 1;
+            synth.speak(utterance);
+        }
+    };
 
     // Function to handle key press once loading is complete
     const handleKeyPress = (event) => {
         if (!loading) {
             if (event.key === '1') {
-                console.log('Scan succeeded');
+                const successMessage = t('scanSuccess'); // Get translated success message
+                console.log(successMessage); // Log success message
+                speak(successMessage); // Speak the success message
                 navigate('/passportScanSuccess'); // Navigate to PassportScanSuccess page
             } else if (event.key === '2') {
-                console.log('Scan failed');
+                const failureMessage = t('scanFailed'); // Get translated failure message
+                console.log(failureMessage); // Log failure message
+                speak(failureMessage); // Speak the failure message
                 navigate('/passportScanFailed'); // Navigate to PassportScanFailed page
             }
         }
     };
 
-    // Simulate loading bar progress
+    // Simulate loading bar progress and speak scanning passport
     useEffect(() => {
+        const scanningMessage = t('scanningPassport'); // Get translated scanning message
+        speak(scanningMessage); // Speak the scanning passport message
+
         const interval = setInterval(() => {
             setProgress((prev) => {
                 if (prev < 100) {
@@ -36,7 +55,7 @@ const PassportScanning = () => {
         }, 200);
 
         return () => clearInterval(interval); // Cleanup interval on component unmount
-    }, []);
+    }, [t, i18n.language]); // Ensure this effect runs when language or translations are updated
 
     // Add event listener for keypress once loading is complete
     useEffect(() => {
@@ -73,7 +92,7 @@ const PassportScanning = () => {
             {/* Instruction to press keys once loading is done */}
             {!loading && (
                 <p style={{ marginTop: '20px', color: 'blue' }}>
-                    Press '1' for success or '2' for failure
+                    {t('pressSuccessOrFailure')}
                 </p>
             )}
         </div>
