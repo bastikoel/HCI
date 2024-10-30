@@ -42,7 +42,7 @@ const PassportScanSuccess = () => {
     }, [navigate, t, i18n.language]); // Empty dependency array to ensure the effect runs only once when the component mounts
 
     return (
-        <div className="min-h-screen flex flex-col justify-center items-center bg-blue-100 text-center">
+        <div className="min-h-screen flex flex-col justify-center items-center bg-grey-100 text-center">
             <h2 className="text-2xl font-bold text-blue-900 mb-4">{t('removePassport')}</h2>
             <p className="text-lg text-blue-700 mb-2">{t('proceedToNextStation')}</p>
             <p className="text-lg text-red-500">{t('redirectingInSeconds', { countdown })}</p>

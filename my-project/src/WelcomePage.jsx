@@ -62,7 +62,7 @@ function WelcomePage() {
   }, [t, i18n.language]);
 
   return (
-    <div className="relative text-center bg-blue-100 h-screen">
+    <div className="relative text-center bg-gray-150 h-screen">
       <h1 className="text-4xl font-bold text-red-500 mt-8">{t('checkIn')}</h1>
       <p className="text-lg text-blue-700 mt-2">{t('welcome')}</p>
       

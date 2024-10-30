@@ -3,7 +3,7 @@ import LanguageSwitcher from './LanguageSwitcher';
 
 const Layout = ({ children }) => {
   return (
-    <div className="h-screen bg-blue-100 flex flex-col">
+    <div className="h-screen bg-gray-300 flex flex-col">
       {/* Place the LanguageSwitcher in a fixed header */}
       <header className="p-4 flex justify-start">
         <LanguageSwitcher />
