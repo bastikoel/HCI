@@ -63,7 +63,7 @@ function WelcomePage() {
 
   return (
     <div className="relative text-center bg-blue-100 h-screen">
-      <h1 className="text-4xl font-bold text-blue-900 mt-8">{t('checkIn')}</h1>
+      <h1 className="text-4xl font-bold text-red-500 mt-8">{t('checkIn')}</h1>
       <p className="text-lg text-blue-700 mt-2">{t('welcome')}</p>
       
       <div className="flex justify-center mt-8">
@@ -77,7 +77,7 @@ function WelcomePage() {
       {/* Call for Assistance Button with Icon */}
       <button
         onClick={handleCallForAssistance}
-        className="fixed bottom-8 right-8 w-40 h-40 bg-blue-600 text-white rounded-full shadow-lg flex items-center justify-center hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50"
+        className="fixed bottom-8 right-8 w-auto  text-white  p-4" // Removed rounded-full, added padding
         aria-label={t('callForAssistance')}
       >
         <img 
