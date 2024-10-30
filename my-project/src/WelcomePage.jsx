@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import passportGif from './assets/passport-insert.gif'; // Adjust the path if needed
+import assistanceIcon from './assets/help-desk.png'; // Import your icon here
 
 function WelcomePage() {
   const { t, i18n } = useTranslation();
@@ -20,6 +21,9 @@ function WelcomePage() {
       utterance.lang = i18n.language; // Use current language set in i18n
       utterance.pitch = 1;
       utterance.rate = 1;
+
+      // Cancel any ongoing speech
+      synth.cancel();
       synth.speak(utterance);
     }
   };
@@ -46,18 +50,21 @@ function WelcomePage() {
     if ('speechSynthesis' in window) {
       const synth = window.speechSynthesis;
       const welcomeMessage = t('welcome');
-      const utterance = new SpeechSynthesisUtterance(`${welcomeMessage}`);
+      const utterance = new SpeechSynthesisUtterance(welcomeMessage);
       utterance.lang = i18n.language;
       utterance.pitch = 1;
       utterance.rate = 1;
+
+      // Cancel any ongoing speech
+      synth.cancel();
       synth.speak(utterance);
     }
   }, [t, i18n.language]);
 
   return (
     <div className="relative text-center bg-blue-100 h-screen">
-      <h1 className="text-4xl font-bold text-blue-900 mt-8">{t('welcome')}</h1>
-      <p className="text-lg text-blue-700 mt-2">{t('checkIn')}</p>
+      <h1 className="text-4xl font-bold text-blue-900 mt-8">{t('checkIn')}</h1>
+      <p className="text-lg text-blue-700 mt-2">{t('welcome')}</p>
       
       <div className="flex justify-center mt-8">
         <img 
@@ -67,22 +74,32 @@ function WelcomePage() {
         />
       </div>
 
-      {/* Call for Assistance Button */}
+      {/* Call for Assistance Button with Icon */}
       <button
         onClick={handleCallForAssistance}
-        className="fixed bottom-8 right-8 w-40 h-40 bg-blue-600 text-white rounded-full shadow-lg flex items-center justify-center text-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50"
+        className="fixed bottom-8 right-8 w-40 h-40 bg-blue-600 text-white rounded-full shadow-lg flex items-center justify-center hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50"
+        aria-label={t('callForAssistance')}
       >
-        {t('callForAssistance')}
+        <img 
+          src={assistanceIcon} 
+          alt={t('callForAssistance')} 
+          className="w-20 h-20" // Adjust size as needed
+        />
       </button>
 
       {/* Overlay for "Officer coming over to help" */}
       {overlayVisible && (
-        <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+        <div 
+          className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center"
+          role="dialog" 
+          aria-labelledby="overlayTitle" 
+          aria-describedby="overlayDescription"
+        >
           <div className="bg-white p-8 rounded-lg shadow-lg">
-            <h2 className="text-2xl font-bold text-blue-600">
+            <h2 id="overlayTitle" className="text-2xl font-bold text-blue-600">
               {t('officerComingToHelp')}
             </h2>
-            <p className="mt-4 text-lg">
+            <p id="overlayDescription" className="mt-4 text-lg">
               {t('pressToClose')}
             </p>
           </div>
